@@ -1,5 +1,5 @@
 {
-	"name": "nextjs",
+	"name": "movie-database",
 	"author": "Gunther Koo",
 	"version": "1.0.0",
 	"main": "server.js",
