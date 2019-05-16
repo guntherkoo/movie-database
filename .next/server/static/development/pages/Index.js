@@ -573,8 +573,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! redux */ "redux");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _redux_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../redux/actions */ "./redux/actions/index.js");
-/* harmony import */ var _styles_styles_scss__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../styles/styles.scss */ "./styles/styles.scss");
-/* harmony import */ var _styles_styles_scss__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_styles_styles_scss__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _styles_styles_scss__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../styles/styles.scss */ "./styles/styles.scss");
+/* harmony import */ var _styles_styles_scss__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_styles_styles_scss__WEBPACK_IMPORTED_MODULE_14__);
+
 
 
 
@@ -658,11 +661,12 @@ function (_Component) {
 
               case 4:
                 movie_db = _context.sent;
+                console.log(movie_db);
                 return _context.abrupt("return", {
                   movie_data: movie_db
                 });
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -689,7 +693,7 @@ function (_Component) {
               case 0:
                 _context2.prev = 0;
                 _context2.next = 3;
-                return fetch("https://api.themoviedb.org/3/movie/".concat(status, "?api_key=f7b1557a908d86ec205d705bf4d509fb&region=").concat(region));
+                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_13___default()("//api.themoviedb.org/3/movie/".concat(status, "?api_key=f7b1557a908d86ec205d705bf4d509fb&region=").concat(region));
 
               case 3:
                 api = _context2.sent;
@@ -883,6 +887,17 @@ module.exports = require("core-js/library/fn/symbol");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/library/fn/symbol/iterator");
+
+/***/ }),
+
+/***/ "isomorphic-unfetch":
+/*!*************************************!*\
+  !*** external "isomorphic-unfetch" ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = require("isomorphic-unfetch");
 
 /***/ }),
 

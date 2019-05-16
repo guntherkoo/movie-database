@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Action } from '../redux/actions';
+import fetch from 'isomorphic-unfetch';
 
 import GlobalStyles from 'styles/styles.scss';
 
@@ -10,6 +11,8 @@ class Index extends Component {
 		const isServer = !!req;
 		const movie_db = await this.fetchMovieData('now_playing', 'US');
 
+		console.log(movie_db)
+
 		return {
 			movie_data : movie_db
 		}
@@ -17,7 +20,7 @@ class Index extends Component {
 
 	static async fetchMovieData(status, region) {
 		try {
-			const api = await fetch(`https://api.themoviedb.org/3/movie/${status}?api_key=f7b1557a908d86ec205d705bf4d509fb&region=${region}`);
+			const api = await fetch(`//api.themoviedb.org/3/movie/${status}?api_key=f7b1557a908d86ec205d705bf4d509fb&region=${region}`);
 			const res = await api.json();
 
 			return res;
