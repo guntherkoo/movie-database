@@ -1,15 +1,18 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { toggleTap, incrementCount, decrementCount } from '../redux/actions';
+import { Action } from '../redux/actions';
 
 import GlobalStyles from 'styles/styles.scss';
 
 class Index extends Component {
 	static getInitialProps ({ reduxStore, req }) {
-		const isServer = !!req
+		const isServer = !!req;
 
-		return {}
+		const fetch_movie_promise = Promise.resolve()
+			.then(() => reduxStore.dispatch(Action.fetchMovieData('now_playing', 'US')));
+			
+		return fetch_movie_promise;
 	}
 
 	toggle = () => {
@@ -17,37 +20,36 @@ class Index extends Component {
 		toggleTap()
 	}
 
-	increment = () => {
-		const { incrementCount } = this.props
-		incrementCount()
-	}
-
-	decrement = () => {
-		const { decrementCount } = this.props
-		decrementCount()
-	}
-
 	render() {
-		const { tap, count } = this.props;
+		const { tap } = this.props;
+		const { results } = this.props.payload;
 
 		return (
 			<section>
 				<h1>
-					This is my Next.js Boilerplate.
+					Now Playing Movies
 				</h1>
-				<h2>
-					{this.props.count}
-				    <button onClick={this.increment}>+1</button>
-				    <button onClick={this.decrement}>-1</button>
-				</h2>
-				<button onClick={this.toggle}>
-					{tap ? 'Toggle Off' : 'Toggle On'}
-				</button>
-				{tap && 
-					<h2>
-						Toggler is ON
-					</h2>
-				}
+				<div style={{marginBottom: '20px'}}>
+					<button onClick={this.toggle}>
+						{tap ? 'Hide Popularity' : 'Show Popularity'}
+					</button>
+				</div>
+				<div>
+					{results && results.map((item, i) => {
+						const img_url = 'https://image.tmdb.org/t/p/w500';
+
+						return (
+							<div key={i}>
+								<img src={`${img_url}${item.poster_path}`} style={{maxWidth: '320px'}}/>
+								<p>
+									<strong>{item.title}</strong> <br/>
+									<span>Popularity: {tap && item.popularity}</span>
+								</p>
+								<br/>
+							</div>
+						)
+					})}
+				</div>
 			</section>
 		)
 	}
@@ -56,12 +58,19 @@ class Index extends Component {
 const mapStateToProps = state => {
 	return {
 		tap: state.tap,
-		count: state.count
 	}
 }
 
-const mapDispatchToProps = dispatch =>
-	bindActionCreators({ toggleTap, incrementCount, decrementCount }, dispatch)
+const mapDispatchToProps = dispatch => {
+	return {
+		toggleTap() {
+			dispatch(Action.toggleTap());
+		},
+		fetchMovieData(status, region) {
+			dispatch(Action.fetchMovieData(status, region));
+		}
+	}
+}
 
 export default connect(
 	mapStateToProps,

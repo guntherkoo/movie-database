@@ -1,22 +1,24 @@
-import { actionTypes } from '../actions';
+import { Type } from '../actions';
+
+// Handle Movie Data Response
+const handleFetchMovieDataSuccess = (state, action) => {
+	const results = action.payload.results;
+
+	return Object.assign({}, state, {
+		movie_results: results
+	})
+}
 
 // REDUCERS
-export const reducer = (state = {}, action) => {
+export default function reducer(state = {}, action) {
 	switch (action.type) {
-		case actionTypes.TOGGLE:
+		case Type.TOGGLE:
 			return Object.assign({}, state, {
 				tap: !state.tap
 			})
 
-		case actionTypes.INCREMENT:
-			return Object.assign({}, state, {
-				count: state.count + 1
-			})
-			
-		case actionTypes.DECREMENT:
-			return Object.assign({}, state, {
-				count: state.count - 1
-			})
+		case 'FETCH_MOVIE_DATA_SUCCESS':
+			return handleFetchMovieDataSuccess(state, action);
 
 		default:
 			return state

@@ -1,0 +1,52 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
+.styles-clearfix-2Rb3A:before,
+.styles-clearfix-2Rb3A:after {
+  content: "";
+  display: table; }
+
+.styles-clearfix-2Rb3A:after {
+  clear: both; }
+
+.styles-clearfix-2Rb3A {
+  zoom: 1; }
+
+* {
+  font-family: 'Oswald', sans-serif;
+  box-sizing: border-box;
+  margin: 0; }
+
+html,
+body {
+  font-size: 10px; }
+
+p {
+  font-size: 1.4rem;
+  line-height: 1.6em; }
+  p small {
+    font-size: .8em; }
+
+a {
+  transition: color 0.25s cubic-bezier(0.42, 0, 0.58, 1);
+  backface-visibility: hidden;
+  text-decoration: none;
+  color: #666;
+  font-family: inherit; }
+  a:hover {
+    color: #232323;
+    cursor: pointer; }
+  a:focus {
+    outline: none; }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  ul li {
+    font-size: 1.4rem; }
+
+/*Oswald Webfont*/
+@font-face {
+  font-family: 'Oswald', sans-serif; }
+
+
+/*# sourceMappingURL=styles.chunk.css.map*/
