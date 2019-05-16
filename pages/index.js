@@ -6,13 +6,25 @@ import { Action } from '../redux/actions';
 import GlobalStyles from 'styles/styles.scss';
 
 class Index extends Component {
-	static getInitialProps ({ reduxStore, req }) {
+	static async getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req;
+		const movie_db = await this.fetchMovieData('now_playing', 'US');
 
-		const fetch_movie_promise = Promise.resolve()
-			.then(() => reduxStore.dispatch(Action.fetchMovieData('now_playing', 'US')));
-			
-		return fetch_movie_promise;
+		return {
+			movie_data : movie_db
+		}
+	}
+
+	static async fetchMovieData(status, region) {
+		try {
+			const api = await fetch(`https://api.themoviedb.org/3/movie/${status}?api_key=f7b1557a908d86ec205d705bf4d509fb&region=${region}`);
+			const res = await api.json();
+
+			return res;
+		} catch (err) {
+			console.log(err, 'Error Fetching Movie Data');
+			return err;
+		}
 	}
 
 	toggle = () => {
@@ -22,7 +34,7 @@ class Index extends Component {
 
 	render() {
 		const { tap } = this.props;
-		const { results } = this.props.payload;
+		const { results } = this.props.movie_data;
 
 		return (
 			<section>
@@ -65,9 +77,6 @@ const mapDispatchToProps = dispatch => {
 	return {
 		toggleTap() {
 			dispatch(Action.toggleTap());
-		},
-		fetchMovieData(status, region) {
-			dispatch(Action.fetchMovieData(status, region));
 		}
 	}
 }

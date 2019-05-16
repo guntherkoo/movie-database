@@ -1241,59 +1241,15 @@ function (_App) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Type", function() { return Type; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Action", function() { return Action; });
-/* harmony import */ var _babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime-corejs2/helpers/esm/defineProperty */ "./node_modules/@babel/runtime-corejs2/helpers/esm/defineProperty.js");
-/* harmony import */ var redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-api-middleware */ "redux-api-middleware");
-/* harmony import */ var redux_api_middleware__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__);
-
- // ACTIONS
-
+// ACTIONS
 var Type = {
-  TOGGLE: 'TOGGLE',
-  FETCH_MOVIE_DATA: 'FETCH_MOVIE_DATA'
+  TOGGLE: 'TOGGLE'
 };
 var Action = {
   toggleTap: function toggleTap() {
     return {
       type: Type.TOGGLE
     };
-  },
-  fetchMovieData: function fetchMovieData(status, region) {
-    var endpoint = "https://api.themoviedb.org/3/movie/".concat(status, "?api_key=f7b1557a908d86ec205d705bf4d509fb&region=").concat(region);
-    return Object(_babel_runtime_corejs2_helpers_esm_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])({}, redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__["RSAA"], {
-      endpoint: endpoint,
-      method: 'GET',
-      types: [{
-        type: "".concat(Type.FETCH_MOVIE_DATA, "_REQUEST")
-      }, {
-        type: "".concat(Type.FETCH_MOVIE_DATA, "_SUCCESS"),
-        meta: {
-          status: status,
-          region: region
-        },
-        payload: function payload(action, state, res) {
-          var has_content = res.status !== 204;
-          return has_content ? Object(redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__["getJSON"])(res).then(function (json) {
-            return json;
-          }, function (err) {
-            return undefined;
-          }) : undefined;
-        }
-      }, {
-        type: "".concat(Type.FETCH_MOVIE_DATA, "_FAILURE"),
-        meta: function meta(action, state, res) {
-          if (res) {
-            return {
-              status: res.status,
-              statusText: res.statusText
-            };
-          }
-
-          return {
-            status: 'Network request failed'
-          };
-        }
-      }]
-    });
   }
 };
 
@@ -1312,21 +1268,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return initializeStore; });
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "redux");
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-api-middleware */ "redux-api-middleware");
-/* harmony import */ var redux_api_middleware__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! redux-devtools-extension */ "redux-devtools-extension");
-/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./reducers */ "./redux/reducers/index.js");
-
+/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! redux-devtools-extension */ "redux-devtools-extension");
+/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _reducers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./reducers */ "./redux/reducers/index.js");
+ // import { apiMiddleware } from 'redux-api-middleware';
 
 
 
 function initializeStore() {
   var initial_state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var createStoreWithMiddleware = Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])())(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"]);
   initial_state = {
-    tap: false
+    tap: false // return createStore(
+    // 	reducer,
+    // 	initial_state,
+    // 	composeWithDevTools(applyMiddleware(apiMiddleware))
+    // )
+
   };
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers__WEBPACK_IMPORTED_MODULE_3__["default"], initial_state, Object(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_2__["composeWithDevTools"])(Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_api_middleware__WEBPACK_IMPORTED_MODULE_1__["apiMiddleware"])));
+  var store = createStoreWithMiddleware(_reducers__WEBPACK_IMPORTED_MODULE_2__["default"], initial_state);
+  return store;
 }
 
 /***/ }),
@@ -1345,15 +1306,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions */ "./redux/actions/index.js");
 
- // Handle Movie Data Response
-
-var handleFetchMovieDataSuccess = function handleFetchMovieDataSuccess(state, action) {
-  var results = action.payload.results;
-  return _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, state, {
-    movie_results: results
-  });
-}; // REDUCERS
-
+ // REDUCERS
 
 function reducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -1364,9 +1317,6 @@ function reducer() {
       return _babel_runtime_corejs2_core_js_object_assign__WEBPACK_IMPORTED_MODULE_0___default()({}, state, {
         tap: !state.tap
       });
-
-    case 'FETCH_MOVIE_DATA_SUCCESS':
-      return handleFetchMovieDataSuccess(state, action);
 
     default:
       return state;
@@ -1571,17 +1521,6 @@ module.exports = require("react-redux");
 /***/ (function(module, exports) {
 
 module.exports = require("redux");
-
-/***/ }),
-
-/***/ "redux-api-middleware":
-/*!***************************************!*\
-  !*** external "redux-api-middleware" ***!
-  \***************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = require("redux-api-middleware");
 
 /***/ }),
 

@@ -17,7 +17,7 @@ const sass = {
 	},
 };
 
-const isProd = process.env.NODE_ENV === 'production';
+// const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = Object.assign(
 	compose([
@@ -45,12 +45,12 @@ module.exports = Object.assign(
 	]),
 	{
 		target: 'serverless',
-		generateBuildId: async () => {
-		// const fromGit = await nextBuildId({
-		//   dir: __dirname,
-		// });
+		// generateBuildId: async () => {
+		// // const fromGit = await nextBuildId({
+		// //   dir: __dirname,
+		// // });
 
-		return process.env.GIT_COMMIT || "localMachine";
-		},
-	},
+		// return process.env.GIT_COMMIT || "localMachine";
+		// },
+	}
 );
