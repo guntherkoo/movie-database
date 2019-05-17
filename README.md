@@ -1,5 +1,7 @@
 # Nextjs + Redux + Express Boilerplate
-Created this boilerplate to quickly start simple web service projects with Nextjs. Ability to push to private Zeit/Now server to view site.
+Using my [Nextjs](https://github.com/guntherkoo/nextjs) boilerplate framework for this project.
+
+Creating a landing page for upcoming movies.
 
 ## Initialize Project
 - `npm install`
@@ -18,3 +20,4 @@ Script will run and URL will be copied to clipboard to view.
 - Classnames-loader
 - Next/SASS
 - Autoprefixer
+- [Boilerplate](https://github.com/guntherkoo/nextjs)
