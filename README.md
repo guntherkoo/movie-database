@@ -1,4 +1,4 @@
-# Nextjs + Redux + Express Boilerplate
+# Upcoming Movies Landing Page
 Using my [Nextjs](https://github.com/guntherkoo/nextjs) boilerplate framework for this project.
 
 Creating a landing page for upcoming movies.
@@ -21,3 +21,4 @@ Script will run and URL will be copied to clipboard to view.
 - Next/SASS
 - Autoprefixer
 - [Boilerplate](https://github.com/guntherkoo/nextjs)
+- [MovieDB](https://developers.themoviedb.org/4/getting-started/authorization)
