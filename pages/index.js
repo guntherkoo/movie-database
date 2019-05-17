@@ -11,8 +11,6 @@ class Index extends Component {
 		const isServer = !!req;
 		const movie_db = await this.fetchMovieData('now_playing', 'US');
 
-		console.log(movie_db)
-
 		return {
 			movie_data : movie_db
 		}
