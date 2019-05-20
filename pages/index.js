@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { Action } from '../redux/actions';
 import fetch from 'isomorphic-unfetch';
 
-import { api_endpoint, api_token } from 'lib/api-config';
+import { api_endpoint_keyword, api_token, mcu_keyword } from 'lib/api-config';
 
 import Image from 'components/image';
 import Date from 'components/date';
@@ -15,17 +15,19 @@ import GlobalStyles from 'styles/styles.scss';
 class Index extends Component {
 	static async getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req;
-		const movie_db = await this.fetchMovieData('now_playing', 'US');
+		const movie_db = await this.fetchMovieData('keyword', 'now_playing', 'US');
 
 		return {
 			movie_data : movie_db
 		}
 	}
 
-	static async fetchMovieData(status, region) {
+	static async fetchMovieData(get, status, region) {
 		try {
-			const api = await fetch(`${api_endpoint}${status}?api_key=${api_token}&region=${region}`);
+			const api = await fetch(`${api_endpoint_keyword}${mcu_keyword}?api_key=${api_token}&region=${region}`);
 			const res = await api.json();
+
+			console.log(api)
 
 			return res;
 		} catch (err) {
