@@ -6,7 +6,7 @@ Creating a landing page for upcoming movies.
 ## Initialize Project
 - `npm install`
 - `npm run dev`
-- Served in [localhost:3001](http://localhost:3001)
+- Served in [localhost:8888](http://localhost:8888)
 
 ## Build for Production
 - `now`

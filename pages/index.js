@@ -4,6 +4,12 @@ import { bindActionCreators } from 'redux';
 import { Action } from '../redux/actions';
 import fetch from 'isomorphic-unfetch';
 
+import { api_endpoint, api_token } from 'lib/api-config';
+
+import Image from 'components/image';
+import Date from 'components/date';
+
+// Global Base Styles + Reset
 import GlobalStyles from 'styles/styles.scss';
 
 class Index extends Component {
@@ -18,7 +24,7 @@ class Index extends Component {
 
 	static async fetchMovieData(status, region) {
 		try {
-			const api = await fetch(`//api.themoviedb.org/3/movie/${status}?api_key=f7b1557a908d86ec205d705bf4d509fb&region=${region}`);
+			const api = await fetch(`${api_endpoint}${status}?api_key=${api_token}&region=${region}`);
 			const res = await api.json();
 
 			return res;
@@ -37,11 +43,10 @@ class Index extends Component {
 		const { tap } = this.props;
 		const { results } = this.props.movie_data;
 
+		console.log(results);
+
 		return (
 			<section>
-				<h1>
-					Now Playing Movies
-				</h1>
 				<div style={{marginBottom: '20px'}}>
 					<button onClick={this.toggle}>
 						{tap ? 'Hide Popularity' : 'Show Popularity'}
@@ -49,15 +54,21 @@ class Index extends Component {
 				</div>
 				<div>
 					{results && results.map((item, i) => {
-						const img_url = 'https://image.tmdb.org/t/p/w500';
-
 						return (
 							<div key={i}>
-								<img src={`${img_url}${item.poster_path}`} style={{maxWidth: '320px'}}/>
+								<Image
+									alt={item.title}
+									size='w500'
+									url={item.backdrop_path}
+								/>
 								<p>
 									<strong>{item.title}</strong> <br/>
 									<span>Popularity: {tap && item.popularity}</span>
+									
 								</p>
+								<Date
+									date={item.release_date}
+								/>
 								<br/>
 							</div>
 						)
@@ -82,7 +93,4 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);
