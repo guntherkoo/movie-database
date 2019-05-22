@@ -6,11 +6,11 @@ import s from './Date.scss';
 
 function Date({date, tag}) {
 	const Tag = tag;
-	
+
 	return (
 		<React.Fragment>
 			<Tag>
-				Release Date: {dayjs(date).format('dddd - MMM D, YYYY')}
+				Release Date: {dayjs(date).format('ddd - MMM D, YYYY')}
 			</Tag>
 		</React.Fragment>
 	)
