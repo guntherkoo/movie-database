@@ -1,43 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { api_img_url } from 'lib/api-config';
-
-import Date from 'components/date';
+import classnames from 'classnames';
 
 import s from './Image.scss';
 
-function overlayCaption(props) {
-	const {
-		title,
-		release_date
-	} = props;
-
-	return (
-		<div className={s('caption-overlay')}>
-			<h1>
-				{title}
-			</h1>
-			<Date
-				date={release_date}
-			/>
-		</div>
-	)
-}
-
 function Image(props) {
 	const {
+		className,
 		title,
 		size,
 		url,
-		overlay
+		render_overlay,
 	} = props;
 
 	return (
-		<div className={s('container')}>
+		<div className={classnames(s('container'), className)}>
 			<img src={`${api_img_url}${size}${url}`} alt={title}/>
-			{overlay &&
-				overlayCaption(props)
-			}
+			{render_overlay && render_overlay}
 		</div>
 	)
 }
@@ -47,7 +27,8 @@ Image.propTypes = {
 	size: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 	release_date: PropTypes.string,
-	overlay: PropTypes.bool,
+	render_overlay: PropTypes.object,
+	className: PropTypes.string,
 }
 
 export default Image;

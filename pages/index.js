@@ -44,9 +44,7 @@ class Index extends Component {
 
 		return (
 			<Fragment>
-				<LandingPage
-					results={results}
-				/>
+				<LandingPage results={results} />
 			</Fragment>
 		)
 	}
