@@ -65,10 +65,10 @@ class DetailPage extends Component {
 		}
 
 		const color_bg = {
-			backgroundColor: `rgba(${this.state.colors[Math.floor(Math.random() * this.state.colors.length)]},.9)`
+			backgroundColor: `rgb(${this.state.colors[0]})`
 		}
 
-		console.log(this.props)
+		console.log(this.props, this.state.colors[0])
 
 		return (
 			<section className={s('container')}>
