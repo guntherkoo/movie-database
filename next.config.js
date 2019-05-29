@@ -1,3 +1,4 @@
+const { LoaderOptionsPlugin } = require('webpack');
 const compose = require('next-compose');
 const withSass = require('@zeit/next-sass');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
@@ -8,13 +9,6 @@ const sass = {
 		importLoaders: 1,
 		localIdentName: '[name]-[local]-[hash:base64:5]',
 	},
-	webpack: config => {
-		config.module.rules.unshift({
-			test: /\.scss$/,
-			use: ['classnames-loader'],
-		});
-		return config;
-	},
 };
 
 // const isProd = process.env.NODE_ENV === 'production';
@@ -23,25 +17,19 @@ module.exports = Object.assign(
 	compose([
 		[withSass, sass],
 		{
-			webpack: config => {
+			webpack: (config, options) => {
 				config.plugins.push(new LodashModuleReplacementPlugin({
 					shorthands: true,
 				}));
 
+				config.module.rules.unshift({
+					test: /\.scss$/,
+					use: ['classnames-loader'],
+				});
+
 				return config;
 			},
 		}
-		/*
-		{
-		webpack: config => {
-		config.module.rules.push({
-		test: /\.(woff|woff2|eot|ttf|otf)$/,
-		use: 'file-loader',
-		});
-
-		return config;
-		}
-		}*/
 	]),
 	{
 		target: 'serverless',

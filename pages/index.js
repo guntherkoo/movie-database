@@ -21,6 +21,8 @@ class Index extends Component {
 		const isServer = !!req;
 		const movie_db = await this.fetchMovieData('now_playing', 'US');
 
+		await reduxStore.dispatch(Action.fetchMovieDataRedux());
+
 		return movie_db;
 	}
 
@@ -37,10 +39,14 @@ class Index extends Component {
 		}
 	}
 
+	componentDidMount() {
+		this.props.fetchMovieDataRedux();
+	}
+
 	render() {
 		const { results } = this.props;
 
-		console.log(results);
+		// console.log(results);
 
 		return (
 			<Fragment>
@@ -55,7 +61,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => {
-	return {}
+	return {
+		fetchMovieDataRedux() {
+			dispatch(Action.fetchMovieDataRedux());
+		},
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -4,14 +4,18 @@ import {
 	combineReducers 
 } from 'redux';
 
-// import { apiMiddleware } from 'redux-api-middleware';
+import thunk from 'redux-thunk'
+import { apiMiddleware } from 'redux-api-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import reducer from './reducers';
 
 export default function initializeStore(initial_state = {}) {
 
-	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware())(createStore);
+
+	const middlewares = [thunk, apiMiddleware];
+
+	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(thunk, apiMiddleware))(createStore);
 
 	initial_state = { tap: false }
 
