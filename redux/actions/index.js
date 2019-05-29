@@ -1,3 +1,9 @@
+import { 
+	api_endpoint_movies, 
+	api_endpoint_keyword, 
+	api_token, 
+	mcu_keyword 
+} from 'lib/api-config';
 import fetch from 'cross-fetch';
 
 // ACTIONS
@@ -33,10 +39,12 @@ const Action = {
 		}
 	},
 
-	fetchMovieDataRedux: () => {
+	fetchMovieDataRedux: (status, region) => {
+		const endpoint = `${api_endpoint_keyword}${mcu_keyword}?api_key=${api_token}&region=${region}`;
+
 		return dispatch => {
 			dispatch(Action.fetchMovieDataReduxRequest())
-			return fetch('https://api.themoviedb.org/3/keyword/180547-marvel-cinematic-universe/movies?api_key=f7b1557a908d86ec205d705bf4d509fb&region=US')
+			return fetch(endpoint)
 				.then(res => res.json())
 				.then(json => dispatch(Action.fetchMovieDataReduxSuccess(json)))
 		}

@@ -1,5 +1,12 @@
 import { Type } from '../actions';
 
+const handleFetchMovieDataSuccess = (state, action) => {
+	return {
+		...state,
+		movie_list: action.results,
+	}
+}
+
 // REDUCERS
 export default function reducer(state = {}, action) {
 	switch (action.type) {
@@ -9,9 +16,7 @@ export default function reducer(state = {}, action) {
 			});
 
 		case 'FETCH_MOVIE_DATA_SUCCESS':
-			return Object.assign({}, state, {
-				movie_list : action.results
-			});
+			return handleFetchMovieDataSuccess(state, action);
 
 		default:
 			return state

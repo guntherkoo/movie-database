@@ -18,8 +18,6 @@ export default function initializeStore(initial_state = {}) {
 
 	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(thunk, apiMiddleware))(createStore);
 
-	initial_state = { tap: false }
-
 	// return createStore(
 	// 	reducer,
 	// 	initial_state,

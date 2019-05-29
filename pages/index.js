@@ -7,6 +7,7 @@ import {
 
 import { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { Action, fetchMovieDataRedux } from '../redux/actions';
 import fetch from 'isomorphic-unfetch';
@@ -19,34 +20,22 @@ import GlobalStyles from 'styles/styles.scss';
 class Index extends Component {
 	static async getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req;
-		const movie_db = await this.fetchMovieData('now_playing', 'US');
+		// const movie_list = await reduxStore.dispatch(Action.fetchMovieDataRedux('now_playing', 'US'));
 
-		await reduxStore.dispatch(Action.fetchMovieDataRedux());
+		const promise = Promise.resolve()
+			.then(() => reduxStore.dispatch(Action.fetchMovieDataRedux('now_playing', 'US')));
 
-		return movie_db;
+		return promise;
 	}
 
-	static async fetchMovieData(status, region) {
-		try {
-			// const api = await fetch(`${api_endpoint_movies}${status}?api_key=${api_token}&region=${region}`);
-			const api = await fetch(`${api_endpoint_keyword}${mcu_keyword}?api_key=${api_token}&region=${region}`);
-			const res = await api.json();
-
-			return res;
-		} catch (err) {
-			console.log(err, 'Error Fetching Movie Data');
-			return err;
-		}
-	}
-
-	componentDidMount() {
-		this.props.fetchMovieDataRedux();
+	static propTypes = {
+		fetchMovieDataRedux: PropTypes.func,
 	}
 
 	render() {
 		const { results } = this.props;
 
-		// console.log(results);
+		console.log(results);
 
 		return (
 			<Fragment>
@@ -57,13 +46,15 @@ class Index extends Component {
 }
 
 const mapStateToProps = state => {
-	return {}
+	return {
+		movie_list: state.movie_list
+	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchMovieDataRedux() {
-			dispatch(Action.fetchMovieDataRedux());
+		fetchLiveBlogStreams(status, region) {
+			dispatch(Action.fetchMovieDataRedux(status, region));
 		},
 	}
 }
