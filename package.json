@@ -15,6 +15,7 @@
 		"classnames": "^2.2.6",
 		"classnames-loader": "^2.1.0",
 		"compression": "^1.7.4",
+		"cross-fetch": "^3.0.3",
 		"dayjs": "^1.8.14",
 		"express": "^4.17.0",
 		"isomorphic-unfetch": "^3.0.0",

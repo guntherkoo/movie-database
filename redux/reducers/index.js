@@ -10,7 +10,7 @@ export default function reducer(state = {}, action) {
 
 		case 'FETCH_MOVIE_DATA_SUCCESS':
 			return Object.assign({}, state, {
-				movie_list : action.payload.results
+				movie_list : action.results
 			});
 
 		default:

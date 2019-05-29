@@ -4,6 +4,7 @@ import {
 	combineReducers 
 } from 'redux';
 
+import 'isomorphic-unfetch';
 import thunk from 'redux-thunk'
 import { apiMiddleware } from 'redux-api-middleware';
 import { composeWithDevTools } from 'redux-devtools-extension'

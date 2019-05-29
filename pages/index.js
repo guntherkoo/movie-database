@@ -8,7 +8,7 @@ import {
 import { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Action } from '../redux/actions';
+import { Action, fetchMovieDataRedux } from '../redux/actions';
 import fetch from 'isomorphic-unfetch';
 
 import LandingPage from './LandingPage';

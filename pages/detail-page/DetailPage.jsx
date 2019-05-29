@@ -2,24 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import fetch from 'isomorphic-unfetch';
 
-import { splashy } from 'splashy';
 import { ColorExtractor } from 'react-color-extractor';
 import { api_endpoint_movies, api_token, api_img_url } from 'lib/api-config';
 
 import s from './DetailPage.scss';
-
-// (async () => {
-//   const splashy = require('splashy')
-//   const got = require('got')
-
-//   const url = 'https://kikobeats.com/images/avatar.jpg'
-//   const { body } = await got(url, { encoding: null })
-//   const palette = await splashy(body)
-
-//   console.log(palette)
-//   // => [ '#941c1c', '#841c16', '#aa695e', '#ca866c', '#6c5444', '#cca4a4' ]
-// })()
-console.log(splashy)
 
 class DetailPage extends Component {
 	static async getInitialProps ({ reduxStore, req, query }) {

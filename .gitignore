@@ -1,4 +1,4 @@
 README.md
-.next
-build
-node_modules
+/.next
+/build
+/node_modules
