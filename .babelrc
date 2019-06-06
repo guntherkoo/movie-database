@@ -10,7 +10,8 @@
 					"pages": "./pages",
 					"routes": "./routes",
 					"styles": "./styles",
-					"lib": "./lib"
+					"lib": "./lib",
+					"redux-store": "./redux-store"
 				}
 			}
 		]

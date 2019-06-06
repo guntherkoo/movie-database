@@ -1,30 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import fetch from 'isomorphic-unfetch';
+import { Action, fetchMovieDataRedux } from 'redux-store/actions';
+import { api_img_url } from 'lib/api-config';
 
 import { ColorExtractor } from 'react-color-extractor';
-import { api_endpoint_movies, api_token, api_img_url } from 'lib/api-config';
 
 import s from './DetailPage.scss';
 
 class DetailPage extends Component {
 	static async getInitialProps ({ reduxStore, req, query }) {
 		const isServer = !!req;
-		const movie_details = await this.fetchMovieDetails(query.id, 'US');
+		// const movie_details = await this.fetchMovieDetails(query.id, 'US');
 
-		return movie_details;
+		// return movie_details;
+
+		const fetch_promise = Promise.resolve()
+			.then(() => reduxStore.dispatch(Action.fetchMovieDataRedux('movie', query.id, 'US')));
+
+		return fetch_promise;
 	}
 
-	static async fetchMovieDetails(query, region) {
-		try {
-			const api = await fetch(`${api_endpoint_movies}${query}?api_key=${api_token}&region=${region}`);
-			const res = await api.json();
-
-			return res;
-		} catch (err) {
-			console.log(err, 'Error Fetching Movie Data');
-			return err;
-		}
+	static propTypes = {
+		fetchMovieDataRedux: PropTypes.func,
 	}
 
 	state = { colors: [] }
@@ -58,7 +56,7 @@ class DetailPage extends Component {
 			title,
 			tagline,
 			backdrop_path
-		} = this.props;
+		} = this.props.results;
 
 		const hero_styles = {
 			backgroundImage: `url(${api_img_url}w1280${backdrop_path})`
@@ -91,4 +89,18 @@ class DetailPage extends Component {
 	}
 }
 
-export default DetailPage;
+const mapStateToProps = state => {
+	return {
+		data: state.data
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		fetchLiveBlogStreams(type, source, region) {
+			dispatch(Action.fetchMovieDataRedux(type, source, region));
+		},
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailPage);

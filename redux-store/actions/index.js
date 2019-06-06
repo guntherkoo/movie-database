@@ -1,4 +1,5 @@
-import { 
+import {
+	api_endpoint,
 	api_endpoint_movies, 
 	api_endpoint_keyword, 
 	api_token, 
@@ -28,7 +29,7 @@ const Action = {
 	fetchMovieDataReduxSuccess: (json) => {
 		return {
 			type: Type.FETCH_MOVIE_DATA_SUCCESS,
-			results: json.results,
+			results: json,
 			receivedAt: Date.now()
 		}
 	},
@@ -39,8 +40,10 @@ const Action = {
 		}
 	},
 
-	fetchMovieDataRedux: (status, region) => {
-		const endpoint = `${api_endpoint_keyword}${mcu_keyword}?api_key=${api_token}&region=${region}`;
+	fetchMovieDataRedux: (type, source, region) => {
+		const endpoint = `${api_endpoint}${type}/${source}?api_key=${api_token}&region=${region}`;
+
+		console.log(endpoint)
 
 		return dispatch => {
 			dispatch(Action.fetchMovieDataReduxRequest())

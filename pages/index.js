@@ -1,16 +1,9 @@
-import { 
-	api_endpoint_movies, 
-	api_endpoint_keyword, 
-	api_token, 
-	mcu_keyword 
-} from 'lib/api-config';
-
 import { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Action, fetchMovieDataRedux } from '../redux/actions';
-import fetch from 'isomorphic-unfetch';
+import { Action, fetchMovieDataRedux } from 'redux-store/actions';
+import { mcu_keyword } from 'lib/api-config';
 
 import LandingPage from './LandingPage';
 
@@ -22,10 +15,10 @@ class Index extends Component {
 		const isServer = !!req;
 		// const movie_list = await reduxStore.dispatch(Action.fetchMovieDataRedux('now_playing', 'US'));
 
-		const promise = Promise.resolve()
-			.then(() => reduxStore.dispatch(Action.fetchMovieDataRedux('now_playing', 'US')));
+		const fetch_promise = Promise.resolve()
+			.then(() => reduxStore.dispatch(Action.fetchMovieDataRedux('movie', 'now_playing', 'US')));
 
-		return promise;
+		return fetch_promise;
 	}
 
 	static propTypes = {
@@ -33,9 +26,9 @@ class Index extends Component {
 	}
 
 	render() {
-		const { results } = this.props;
+		const { results } = this.props.data;
 
-		console.log(results);
+		console.log('*** '+this.props.type+' ***', results);
 
 		return (
 			<Fragment>
@@ -47,14 +40,14 @@ class Index extends Component {
 
 const mapStateToProps = state => {
 	return {
-		movie_list: state.movie_list
+		data: state.data
 	}
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		fetchLiveBlogStreams(status, region) {
-			dispatch(Action.fetchMovieDataRedux(status, region));
+		fetchLiveBlogStreams(type, source, region) {
+			dispatch(Action.fetchMovieDataRedux(type, source, region));
 		},
 	}
 }
