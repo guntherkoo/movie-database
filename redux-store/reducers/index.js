@@ -1,18 +1,31 @@
 import { Type } from '../actions';
-// import { getColorFromURL } from 'color-thief-node';
+import { api_img_url } from 'lib/api-config';
+import { getColorFromURL } from 'color-thief-node';
 
-// (async () => {
-// 	try {
-// 		const img = 'https://i2-prod.mirror.co.uk/incoming/article7731571.ece/ALTERNATES/s298/Pokemon-charmander.png';
-// 		const dominantColor = await getColorFromURL(img);
-
-// 		console.log(dominantColor, '!!!!!!!!')
-// 	} catch (error) {
-// 		console.log(error)
-// 	}
-// })()
+const getColor = async (img) => {
+	try {
+		const dominantColor = await getColorFromURL(img);
+		return dominantColor;
+	} catch (error) {
+		console.log(error)
+	}
+}
 
 const handleFetchMovieDataSuccess = (state, action) => {
+	const data = action.results;
+
+	if (data.backdrop_path) {
+		const img = `https:${api_img_url}w500${data.backdrop_path}`;
+		const color = getColor(img);
+
+		console.log(color)
+
+		return Object.assign({}, state, {
+			color: color,
+			data: action.results,
+		});
+	}
+
 	return {
 		...state,
 		data: action.results,

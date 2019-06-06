@@ -13,10 +13,9 @@ import reducer from './reducers';
 
 export default function initializeStore(initial_state = {}) {
 
-
 	const middlewares = [thunk, apiMiddleware];
 
-	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(thunk, apiMiddleware))(createStore);
+	const createStoreWithMiddleware = composeWithDevTools(applyMiddleware(...middlewares))(createStore);
 
 	// return createStore(
 	// 	reducer,

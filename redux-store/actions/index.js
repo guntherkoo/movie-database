@@ -1,10 +1,4 @@
-import {
-	api_endpoint,
-	api_endpoint_movies, 
-	api_endpoint_keyword, 
-	api_token, 
-	mcu_keyword 
-} from 'lib/api-config';
+import { api_endpoint, api_token } from 'lib/api-config';
 import fetch from 'cross-fetch';
 
 // ACTIONS
@@ -42,8 +36,6 @@ const Action = {
 
 	fetchMovieDataRedux: (type, source, region) => {
 		const endpoint = `${api_endpoint}${type}/${source}?api_key=${api_token}&region=${region}`;
-
-		console.log(endpoint)
 
 		return dispatch => {
 			dispatch(Action.fetchMovieDataReduxRequest())

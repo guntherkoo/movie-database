@@ -13,8 +13,6 @@ import GlobalStyles from 'styles/styles.scss';
 class Index extends Component {
 	static async getInitialProps ({ reduxStore, req }) {
 		const isServer = !!req;
-		// const movie_list = await reduxStore.dispatch(Action.fetchMovieDataRedux('now_playing', 'US'));
-
 		const fetch_promise = Promise.resolve()
 			.then(() => reduxStore.dispatch(Action.fetchMovieDataRedux('movie', 'now_playing', 'US')));
 

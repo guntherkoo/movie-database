@@ -9,12 +9,8 @@ import { ColorExtractor } from 'react-color-extractor';
 import s from './DetailPage.scss';
 
 class DetailPage extends Component {
-	static async getInitialProps ({ reduxStore, req, query }) {
+	static async getInitialProps ({ reduxStore, req, query, props}) {
 		const isServer = !!req;
-		// const movie_details = await this.fetchMovieDetails(query.id, 'US');
-
-		// return movie_details;
-
 		const fetch_promise = Promise.resolve()
 			.then(() => reduxStore.dispatch(Action.fetchMovieDataRedux('movie', query.id, 'US')));
 
@@ -56,7 +52,7 @@ class DetailPage extends Component {
 			title,
 			tagline,
 			backdrop_path
-		} = this.props.results;
+		} = this.props.data;
 
 		const hero_styles = {
 			backgroundImage: `url(${api_img_url}w1280${backdrop_path})`
@@ -65,8 +61,6 @@ class DetailPage extends Component {
 		const color_bg = {
 			backgroundColor: `rgb(${this.state.colors[0]})`
 		}
-
-		console.log(this.props)
 
 		return (
 			<section className={s('container')}>
